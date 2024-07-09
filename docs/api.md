@@ -1,4 +1,3 @@
-````
 # API Documentation
 
 ## Table of Contents
@@ -32,7 +31,6 @@
   "password": "password123"
 }
 ```
-````
 
 **Response:**
 
