@@ -17,7 +17,7 @@ router.get("/users", auth, adminController.getAllUsers);
 router.get("/user/:username", auth, adminController.getUserDetails);
 
 // Route to delete a user by username (protected by auth middleware)
-router.delete("/user/:username", auth, adminController.deleteUser);
+router.delete("/users/:username", auth, adminController.deleteUser);
 
 // Exporting the router to be used in other parts of the application
 module.exports = router;
