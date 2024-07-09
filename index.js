@@ -1,7 +1,7 @@
 // Importing necessary modules
 const express = require("express");
 const mongoose = require("mongoose");
-const { mongoURI } = require("./config");
+const { mongoURI } = require("./config/config");
 
 // Initializing the Express application
 const app = express();

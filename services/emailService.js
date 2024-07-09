@@ -1,6 +1,6 @@
 // Importing necessary modules and configurations
 const nodemailer = require("nodemailer");
-const { emailUser, emailPass } = require("../config");
+const { emailUser, emailPass } = require("../config/config");
 
 // Configure the email transporter
 const transporter = nodemailer.createTransport({

@@ -3,7 +3,7 @@ const Admin = require("../models/Admin");
 const User = require("../models/User");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
-const { jwtSecret } = require("../config");
+const { jwtSecret } = require("../config/config");
 
 // Register a new admin
 exports.register = async (req, res) => {
