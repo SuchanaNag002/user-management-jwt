@@ -24,7 +24,7 @@ exports.register = async (req, res) => {
 
     // Generate and hash the OTP
     const otp = otpService.generateOtp();
-    user.otp = otpService.hashOtp(otp);
+    user.otp = await otpService.hashOtp(otp);
 
     // Send the OTP email
     await emailService.sendOtpEmail(email, otp);
@@ -46,7 +46,7 @@ exports.verifyOtp = async (req, res) => {
   try {
     // Find the user by email
     const user = await User.findOne({ email });
-    if (!user || user.otp !== otp)
+    if (!user || !(await otpService.verifyOtp(otp, user.otp)))
       return res.status(400).json({ msg: "Invalid OTP" });
 
     // Validate the user and clear the OTP

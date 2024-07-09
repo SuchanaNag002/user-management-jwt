@@ -2,7 +2,7 @@
 const nodemailer = require("nodemailer");
 const { emailUser, emailPass } = require("../config/config");
 
-// Configure the email transporter
+// Setup the nodemailer transporter for sending emails
 const transporter = nodemailer.createTransport({
   service: "gmail",
   auth: {
@@ -11,8 +11,9 @@ const transporter = nodemailer.createTransport({
   },
 });
 
-// Send an OTP email
+// Send OTP email
 exports.sendOtpEmail = async (email, otp) => {
+  // Set up email options
   const mailOptions = {
     from: emailUser,
     to: email,
@@ -20,5 +21,6 @@ exports.sendOtpEmail = async (email, otp) => {
     text: `Your OTP is ${otp}`,
   };
 
+  // Send the OTP email
   await transporter.sendMail(mailOptions);
 };

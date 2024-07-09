@@ -1,21 +1,23 @@
 // Importing necessary modules and configurations
-const crypto = require("crypto");
+const bcrypt = require("bcrypt");
 
-// Generate a six-digit OTP
+// Generate OTP
 exports.generateOtp = () => {
+  // Generate a 6-digit OTP
   return Math.floor(100000 + Math.random() * 900000).toString();
 };
 
-// Hash the OTP using a secure algorithm
-exports.hashOtp = (otp) => {
-  return crypto.createHash("sha256").update(otp).digest("hex");
+// Hash OTP
+exports.hashOtp = async (otp) => {
+  // Generate a salt for hashing
+  const salt = await bcrypt.genSalt(10);
+
+  // Hash the OTP
+  return await bcrypt.hash(otp, salt);
 };
 
-// Validate the provided OTP against the stored hash
-exports.validateOtp = (providedOtp, storedHash) => {
-  const providedHash = crypto
-    .createHash("sha256")
-    .update(providedOtp)
-    .digest("hex");
-  return providedHash === storedHash;
+// Verify if the provided OTP matches the stored hashed OTP
+exports.verifyOtp = async (inputOtp, storedHashedOtp) => {
+  // Compare the provided OTP with the stored hashed OTP
+  return await bcrypt.compare(inputOtp, storedHashedOtp);
 };
