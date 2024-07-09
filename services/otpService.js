@@ -1,23 +1,29 @@
 // Importing necessary modules and configurations
 const bcrypt = require("bcrypt");
 
-// Generate OTP
+// Function to generate OTP
 exports.generateOtp = () => {
-  // Generate a 6-digit OTP
   return Math.floor(100000 + Math.random() * 900000).toString();
 };
 
-// Hash OTP
+// Function to hash OTP
 exports.hashOtp = async (otp) => {
-  // Generate a salt for hashing
-  const salt = await bcrypt.genSalt(10);
-
-  // Hash the OTP
-  return await bcrypt.hash(otp, salt);
+  try {
+    const hashedOtp = await bcrypt.hash(otp, 10);
+    return hashedOtp;
+  } catch (error) {
+    console.error("Error hashing OTP:", error.message);
+    throw new Error("Failed to hash OTP");
+  }
 };
 
-// Verify if the provided OTP matches the stored hashed OTP
-exports.verifyOtp = async (inputOtp, storedHashedOtp) => {
-  // Compare the provided OTP with the stored hashed OTP
-  return await bcrypt.compare(inputOtp, storedHashedOtp);
+// Function to verify OTP hash
+exports.verifyOtp = async (otp, hashedOtp) => {
+  try {
+    const isMatch = await bcrypt.compare(otp, hashedOtp);
+    return isMatch;
+  } catch (error) {
+    console.error("Error verifying OTP:", error.message);
+    throw new Error("Failed to verify OTP");
+  }
 };
