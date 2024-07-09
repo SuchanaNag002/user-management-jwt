@@ -20,7 +20,7 @@ router.post("/login", userController.login);
 router.get("/me", auth, userController.getUserInfo);
 
 // Route to update the authenticated user's information
-router.put("/update", auth, userController.updateUserInfo);
+router.put("/update-info", auth, userController.updateUserInfo);
 
 // Exporting the router to be used in other parts of the application
 module.exports = router;
