@@ -1,31 +1,30 @@
-// Importing jsonwebtoken module for working with JWTs
-const jwt = require('jsonwebtoken');
+// Importing necessary modules
+const jwt = require("jsonwebtoken");
+const { jwtSecret } = require("../config");
 
-// Importing the jwtSecret from the configuration file
-const { jwtSecret } = require('../config');
+// Middleware function to authenticate user
+function auth(req, res, next) {
+  // Get token from the Authorization header and remove 'Bearer ' prefix
+  const token = req.header("Authorization").replace("Bearer ", "");
 
-// Defining the authentication middleware function
-const auth = (req, res, next) => {
-  // Getting the token from the request header
-  const token = req.header('x-auth-token');
-
-  // If no token is provided, return a 401 Unauthorized response
-  if (!token) return res.status(401).json({ msg: 'No token, authorization denied' });
+  // If no token is found, return an unauthorized error
+  if (!token) {
+    return res.status(401).json({ msg: "No token, authorization denied" });
+  }
 
   try {
-    // Verifying the token using the secret key
+    // Verify the token using the JWT secret
     const decoded = jwt.verify(token, jwtSecret);
 
-    // Attaching the decoded user information to the request object
+    // Attach decoded user information to the request object
     req.user = decoded;
 
-    // Passing control to the next middleware or route handler
+    // Proceed to the next middleware or route handler
     next();
   } catch (e) {
-    // If the token is not valid, return a 400 Bad Request response
-    res.status(400).json({ msg: 'Token is not valid' });
+    // If token verification fails, return a bad request error
+    res.status(400).json({ msg: "Token is not valid" });
   }
-};
+}
 
-// Exporting the authentication middleware function
 module.exports = auth;
