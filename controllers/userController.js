@@ -35,6 +35,7 @@ exports.register = async (req, res) => {
     // Respond with success message
     res.status(200).json({ msg: "OTP sent to email" });
   } catch (error) {
+    console.error(error.message);
     res.status(500).json({ msg: "Server error" });
   }
 };
@@ -57,6 +58,7 @@ exports.verifyOtp = async (req, res) => {
     // Respond with success message
     res.status(200).json({ msg: "Account validated" });
   } catch (error) {
+    console.error(error.message);
     res.status(500).json({ msg: "Server error" });
   }
 };
@@ -82,6 +84,7 @@ exports.addInfo = async (req, res) => {
     // Respond with success message
     res.status(200).json({ msg: "Information updated" });
   } catch (error) {
+    console.error(error.message);
     res.status(500).json({ msg: "Server error" });
   }
 };
@@ -106,6 +109,7 @@ exports.login = async (req, res) => {
     // Respond with the token
     res.status(200).json({ token });
   } catch (error) {
+    console.error(error.message);
     res.status(500).json({ msg: "Server error" });
   }
 };
@@ -119,6 +123,7 @@ exports.getUserInfo = async (req, res) => {
     // Respond with user information
     res.status(200).json(user);
   } catch (error) {
+    console.error(error.message);
     res.status(500).json({ msg: "Server error" });
   }
 };
@@ -143,6 +148,7 @@ exports.updateUserInfo = async (req, res) => {
     // Respond with success message
     res.status(200).json({ msg: "Information updated" });
   } catch (error) {
+    console.error(error.message);
     res.status(500).json({ msg: "Server error" });
   }
 };
