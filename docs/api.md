@@ -1,4 +1,4 @@
-````markdown
+````
 # API Documentation
 
 ## Table of Contents
