@@ -2,7 +2,7 @@
 const nodemailer = require("nodemailer");
 const { emailUser, emailPass } = require("../config/config");
 
-// Setup the nodemailer transporter for sending emails
+// Create nodemailer transporter
 const transporter = nodemailer.createTransport({
   service: "gmail",
   auth: {
@@ -11,16 +11,19 @@ const transporter = nodemailer.createTransport({
   },
 });
 
-// Send OTP email
+// Function to send OTP email
 exports.sendOtpEmail = async (email, otp) => {
-  // Set up email options
-  const mailOptions = {
-    from: emailUser,
-    to: email,
-    subject: "OTP for account verification",
-    text: `Your OTP is ${otp}`,
-  };
+  try {
+    const mailOptions = {
+      from: emailUser,
+      to: email,
+      subject: "OTP for account verification",
+      text: `Your OTP is ${otp}`,
+    };
 
-  // Send the OTP email
-  await transporter.sendMail(mailOptions);
+    await transporter.sendMail(mailOptions);
+  } catch (error) {
+    console.error("Error sending email:", error.message);
+    throw new Error("Failed to send OTP email");
+  }
 };
