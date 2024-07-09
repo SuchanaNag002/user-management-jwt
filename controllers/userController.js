@@ -2,17 +2,9 @@
 const User = require("../models/User");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
-const nodemailer = require("nodemailer");
-const { jwtSecret, emailUser, emailPass } = require("../config");
-
-// Setting up the nodemailer transporter for sending emails
-const transporter = nodemailer.createTransport({
-  service: "gmail",
-  auth: {
-    user: emailUser,
-    pass: emailPass,
-  },
-});
+const { jwtSecret } = require("../config");
+const otpService = require("../services/otpService");
+const emailService = require("../services/emailService");
 
 // Register a new user
 exports.register = async (req, res) => {
@@ -30,20 +22,12 @@ exports.register = async (req, res) => {
     const salt = await bcrypt.genSalt(10);
     user.password = await bcrypt.hash(password, salt);
 
-    // Generate a one-time password (OTP)
-    const otp = Math.floor(100000 + Math.random() * 900000).toString();
-    user.otp = otp;
-
-    // Set up email options
-    const mailOptions = {
-      from: emailUser,
-      to: email,
-      subject: "OTP for account verification",
-      text: `Your OTP is ${otp}`,
-    };
+    // Generate and hash the OTP
+    const otp = otpService.generateOtp();
+    user.otp = otpService.hashOtp(otp);
 
     // Send the OTP email
-    await transporter.sendMail(mailOptions);
+    await emailService.sendOtpEmail(email, otp);
 
     // Save the user to the database
     await user.save();
