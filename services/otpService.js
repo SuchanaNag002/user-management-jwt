@@ -24,6 +24,6 @@ exports.verifyOtp = async (otp, hashedOtp) => {
     return isMatch;
   } catch (error) {
     console.error("Error verifying OTP:", error.message);
-    throw new Error("Failed to verify OTP!");
+    throw new Error("Failed to verify OTP");
   }
 };
