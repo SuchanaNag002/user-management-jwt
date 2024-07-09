@@ -117,6 +117,7 @@ exports.login = async (req, res) => {
 
     // Create a JWT payload and sign the token
     const payload = { id: user.id };
+    // Creating a JWT (JSON Web Token) with a payload and secret, and setting it to expire in 3600 seconds (1 hour)
     const token = jwt.sign(payload, jwtSecret, { expiresIn: 3600 });
 
     // Respond with the token
