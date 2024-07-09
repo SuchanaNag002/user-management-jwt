@@ -1,6 +1,6 @@
 // Importing necessary modules
 const jwt = require("jsonwebtoken");
-const { jwtSecret } = require("../config");
+const { jwtSecret } = require("../config/config");
 
 // Middleware function to authenticate user
 function auth(req, res, next) {
