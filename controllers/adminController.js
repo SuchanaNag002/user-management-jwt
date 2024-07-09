@@ -12,7 +12,9 @@ exports.register = async (req, res) => {
   try {
     // Check if the admin already exists
     let admin = await Admin.findOne({ email });
-    if (admin) return res.status(400).json({ msg: "Admin already exists" });
+    if (admin) {
+      return res.status(400).json({ msg: "Admin already exists" });
+    }
 
     // Create a new admin instance
     admin = new Admin({ email, username, password });
@@ -38,14 +40,19 @@ exports.login = async (req, res) => {
   try {
     // Find the admin by email
     const admin = await Admin.findOne({ email });
-    if (!admin) return res.status(400).json({ msg: "Admin not found" });
+    if (!admin) {
+      return res.status(400).json({ msg: "Admin not found" });
+    }
 
     // Check if the password matches
     const isMatch = await bcrypt.compare(password, admin.password);
-    if (!isMatch) return res.status(400).json({ msg: "Invalid credentials" });
+    if (!isMatch) {
+      return res.status(400).json({ msg: "Invalid credentials" });
+    }
 
-    // Create a JWT payload and sign the token
+    // Create a JWT payload
     const payload = { id: admin.id };
+    // Create a JWT token by signing a payload with the JWT secret and set expiration time to 1 hour
     const token = jwt.sign(payload, jwtSecret, { expiresIn: 3600 });
 
     // Respond with the token
@@ -75,7 +82,9 @@ exports.getUserDetails = async (req, res) => {
   try {
     // Find the user by username
     const user = await User.findOne({ username });
-    if (!user) return res.status(404).json({ msg: "User not found" });
+    if (!user) {
+      return res.status(404).json({ msg: "User not found" });
+    }
 
     // Respond with user details
     res.status(200).json(user);
@@ -91,7 +100,9 @@ exports.deleteUser = async (req, res) => {
   try {
     // Find and delete the user by username
     const user = await User.findOneAndDelete({ username });
-    if (!user) return res.status(404).json({ msg: "User not found" });
+    if (!user) {
+      return res.status(404).json({ msg: "User not found" });
+    }
 
     // Respond with success message
     res.status(200).json({ msg: "User deleted" });
