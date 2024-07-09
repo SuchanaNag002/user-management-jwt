@@ -22,7 +22,7 @@ app.use("/api/users", require("./routes/userRoutes"));
 // Routes for admin-related requests
 app.use("/api/admin", require("./routes/adminRoutes"));
 
-// Starting the server and listening on the specified port
+// Starting the server and listening on the specified port 5000
 app.listen(port, () => {
   console.log(`Server running on port ${port}`);
 });
