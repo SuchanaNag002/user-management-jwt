@@ -34,6 +34,13 @@ This project implements a RESTful API using Express.js and MongoDB for user mana
    - View detailed information of a specific user.
    - Delete a user by username.
 
+## Hosted Project
+
+The project is hosted at [https://user-management-jwt.onrender.com/](https://user-management-jwt.onrender.com/). If you do not want to install the project locally, you can test the APIs using the following endpoints:
+
+- User functionalities: [https://user-management-jwt.onrender.com/api/users/](https://user-management-jwt.onrender.com/api/users/)
+- Admin functionalities: [https://user-management-jwt.onrender.com/api/admin/](https://user-management-jwt.onrender.com/api/admin/)
+
 ## Installation
 
 1. Clone the repository:
@@ -70,7 +77,7 @@ Refer to [docs/api.md](docs/api.md) for detailed API documentation including rou
 
 ## Screenshots
 
-For detailed screenshots of the application's APIs and MongoDB schema, please refer to [this Word file](link_to_your_word_file.docx).
+For detailed screenshots of the application's APIs and MongoDB schema, please refer to [this Word file](docs/monter_task.docx).
 
 ## Contributing
 
@@ -81,4 +88,3 @@ Contributions are welcome! Fork the repository and submit a pull request with yo
 This project is licensed under the MIT License - see the LICENSE file for details.
 
 ---
-
